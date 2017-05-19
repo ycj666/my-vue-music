@@ -1,4 +1,4 @@
-<p align="center"><a href="http://sioxas.github.io/" target="_blank"><img width="300"src="https://github.com/Sioxas/GitImage/raw/master/Apple_Music_Blur.png"></a></p>
+<!--<p align="center"><a href="http://sioxas.github.io/" target="_blank"><img width="300"src="https://github.com/Sioxas/GitImage/raw/master/Apple_Music_Blur.png"></a></p>
 <p align="center">Vue 音乐搜索、播放 Demo，资源来自QQ音乐</p>
 <p align="center">
   <a href="http://sioxas.github.io/"><img src="https://img.shields.io/travis/rust-lang/rust.svg" alt="Vue"></a>
@@ -11,9 +11,12 @@
   <a href="https://github.com/Reactive-Extensions/RxJS"><img src="https://img.shields.io/badge/rxjs-v5.0.2-blue.svg" alt="rxjs"></a>
   <a href="https://github.com/hilongjw/vue-lazyload"><img src="https://img.shields.io/badge/vue--lazyload-v1.0.0--rc7-yellow.svg" alt="vue-lazyload"></a>
 </p>
-<!--<p align="center">查看Demo:<a href="http://sioxas.github.io/">http://sioxas.github.io/</a>,在手机上效果更好，扫一扫体验</p>-->
-<p align="center"><a href="http://sioxas.github.io/"><img src="http://ww2.sinaimg.cn/large/6ee3e8b3gw1f9xjboxz2tj205i05fjrm.jpg" alt="vue-music"></a></p>
+<p align="center">查看Demo:<a href="http://sioxas.github.io/">http://sioxas.github.io/</a>,在手机上效果更好，扫一扫体验</p>
+<p align="center"><a href="http://sioxas.github.io/"><img src="http://ww2.sinaimg.cn/large/6ee3e8b3gw1f9xjboxz2tj205i05fjrm.jpg" alt="vue-music"></a></p>-->
 
+# vue_study
+
+> A Vue.js project
 
 ### 实现的功能
 1. 音乐播放、暂停、上一曲、下一曲
@@ -44,7 +47,7 @@ npm run dev
 npm run build
 ```
 
-# 截图
+<!--# 截图-->
 
 
 <!--### 推荐
