@@ -46,7 +46,7 @@ npm run build
 # 截图
 
 
-### 推荐
+<!--### 推荐
 ![推荐](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_2249.PNG)
 ### 排行榜
 ![排行榜](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_1807.PNG)
@@ -63,4 +63,4 @@ npm run build
 ![歌手页面](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_1588.PNG)
 ![歌手页面](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_1589.PNG)
 ### 播放列表
-![播放列表](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_1590.PNG)
+![播放列表](https://github.com/Sioxas/GitImage/raw/master/screenshot/IMG_1590.PNG)-->
