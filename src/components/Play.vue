@@ -31,7 +31,7 @@
       </div>
       <div class="music-ctrl">
         <ul>
-          <li><img src="../assets/icon-like.png"></li>
+          <li><div @click='iLike' class="iLike-img" v-bind:class='{ likeActive: isActive }'></div></li>
           <li><img src="../assets/icon-shangyiqu.png"
                    @touchend.prevent="playFront"
                    @click="playFront"></li>
@@ -48,6 +48,8 @@
       </div>
 
     </div>
+    <div id="like-toast"></div>
+	  <span id="toast2"></span>
   </div>
 </template>
 
@@ -61,6 +63,7 @@
     data () {
       return {
         clientY: 0,
+        isActive: false
       }
     },
     methods: {
@@ -80,7 +83,36 @@
       },
       ...mapMutations([
         'play', 'pause', 'playFront', 'playNext'
-      ])
+      ]),
+      iLike: function () {
+        this.isActive = !this.isActive
+        if(this.isActive) {
+          this.drawToast('收藏成功')
+        }
+        else {
+          this.drawToast('取消收藏')
+        }
+      },
+      drawToast: function (message) {
+        var alert = document.getElementById('like-toast');
+        if (alert.className.match(new RegExp('(\\s|^)' + 'show' + '(\\s|$)'))) {
+          return false;
+        }
+        alert.className = alert.className.replace('lines', '');
+        alert.style.opacity = .8;
+        alert.innerHTML = message;
+        var temp_alert = document.getElementById('toast2');
+        temp_alert.innerHTML = message;
+        alert.className += 'show';
+        alert.style.marginLeft = '-' + temp_alert.offsetWidth / 2 + 'px';
+        var intervalCounter = setTimeout(function() {
+          alert.style.opacity = 0;
+          clearInterval(intervalCounter);
+        }, 1200);
+        setTimeout(function() {
+          alert.className = alert.className.replace('show', '');
+        }, 800);
+      }
     },
     computed: {
       ...mapGetters([
@@ -109,8 +141,6 @@
 </script>
 
 <style scoped>
-
-
   .music-play-page {
     width: 100%;
     max-width: 68vh;
@@ -230,6 +260,7 @@
     float: left;
     width: 20%;
     height: 100%;
+    cursor: pointer;
   }
 
   .music-play-page .button-group .music-ctrl ul li img {
@@ -238,6 +269,19 @@
     margin: 0 auto;
   }
 
+  .iLike-img {
+    display: block;
+    width: 35px;
+    height: 35px;
+    margin: 0 auto;
+    margin-left: 10px;
+    background: url('../assets/icon-ilike.png') center no-repeat;
+    background-size: cover;
+  }
+  .likeActive {
+    background: url('../assets/icon-ilike-fill.png') center no-repeat;
+    background-size: cover;
+  }
   .music-play-page .button-group .music-ctrl ul li:first-child img {
     margin-left: 10px;
   }
@@ -368,5 +412,38 @@
       margin-left: -34vh;
       left: 50%;
     }
+  }
+
+  #like-toast {
+    position: fixed;
+    bottom: 60px;
+    left: 50px;
+    line-height: 37px;
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    opacity: 0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    z-index: 9999;
+    /*The good stuff */
+    -webkit-transition: opacity 0.5s ease-out;
+    /* Saf3.2+, Chrome */
+    -moz-transition: opacity 0.5s ease-out;
+    /* FF4+ */
+    -ms-transition: opacity 0.5s ease-out;
+    /* IE10? */
+    -o-transition: opacity 0.5s ease-out;
+    /* Opera 10.5+ */
+    transition: opacity 0.5s ease-out;
+  }
+  #toast2 {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    visibility: hidden;
+    white-space: nowrap;
   }
 </style>

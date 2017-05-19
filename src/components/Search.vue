@@ -179,7 +179,7 @@
               that.$store.commit('addToPlayList', that.searchRes.song.itemlist[that.menuedIndex])
             },
             ['iLike'](){
-              that.$http.get('//localhost:3000/vuemusic/getUsersList',).then((res) => {
+              that.$http.get('//192.168.1.123:3000/vuemusic/getUsersList',).then((res) => {
                 console.log(res);
               }, (err) => {
                 console.error(err);

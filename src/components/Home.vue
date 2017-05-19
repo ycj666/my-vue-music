@@ -64,29 +64,36 @@
             <img src="../assets/icon.png" alt="" class="person-head-img">
           </div>
           <div class="head-title">琥珀音乐，更懂你的音乐</div>
-          <div class="head-login"><router-link to='/login' class="login">立即登录</router-link></div>
-          
+          <div class="head-login" v-show="!loggedOn"><router-link to='/login' class="login">立即登录</router-link></div>
+          <div class="logged-txt" v-show="loggedOn"><img src="../assets/user-head-img.png" alt="" class="logged-img">{{ username }}</div>
         </div>
         <div class="person-list">
-          <ul class="first-list">
-            <li>我的消息</li>
-          </ul>
-          <ul class="second-list">
-            <li>我的好友</li>
-            <li>附近的人</li>
-          </ul>
-          <ul class="third-list">
-            <li>关于</li>
-          </ul>
+          <div class="slide-list list-line">
+            <img src="../assets/icon-message.png" alt="" class="slide-img">
+            <p>我的消息</p>
+          </div>
+          <div class="slide-list">
+            <img src="../assets/icon-group.png" alt="" class="slide-img">
+            <p>我的好友</p>
+          </div>
+          <div class="slide-list list-line">
+            <img src="../assets/icon-coordinates.png" alt="" class="slide-img">
+            <p>附近的人</p>
+          </div>
+          <div class="slide-list list-line">
+            <img src="../assets/icon-about-2.png" alt="" class="slide-img">
+            <p>关于</p>
+          </div>
+          <div class="slide-list last-list" @click='logout' v-show="loggedOn">
+            <img src="../assets/icon-logout.png" alt="" class="slide-img">
+            <p>退出登录</p>
+          </div>
         </div>
       </div>
     </transition>
 
-    <!--<transition :name="routerViewAnimation">
-      <router-view v-show="!loginShow"></router-view>
-    </transition>-->
-
-    <!--<play-bar></play-bar>-->
+    <div id="toast"></div>
+    <span id="toast1"></span>
   </div>
 </template>
 
@@ -120,26 +127,10 @@
       // PlayBar
     },
     methods: {
-      // fixTabBar(event) {
-      //   event.preventDefault()
-      //   this.scroll = document.body.scrollTop
-      //   if(this.scroll >= 60) {
-      //     document.getElementById('swiper-pagination').style.position = 'fixed'
-      //     document.getElementById('swiper-pagination').style.top = 0 + 'px'
-      //   }
-      //   else {
-      //     document.getElementById('swiper-pagination').style.position = 'absolute'
-      //     document.getElementById('swiper-pagination').style.top = 0 + 'px'
-      //   }
-      // },
       tapButton(event) {
         event.preventDefault()
         this.playing ? this.pause() : this.play()
       },
-      // showPlayPage(event) {
-      //   event.preventDefault()
-      //   this.playPageShow = true
-      // },
       hidePlayPage(event) {
         event.preventDefault()
         this.playPageShow = false
@@ -157,7 +148,41 @@
       },
       ...mapMutations([
         'play', 'pause', 'playContinue'
-      ])
+      ]),
+      logout() {
+        let that = this
+        console.log('注销登录');
+        localStorage.removeItem('currentUserId');
+        localStorage.removeItem('currentUserName');
+        console.log(localStorage.length);
+        that.drawToast('注销成功')
+        setTimeout (function () {        
+          that.$router.push({
+           name:'login'
+          })
+        },500)
+      },
+      drawToast: function (message) {
+          var alert = document.getElementById('toast');
+          if (alert.className.match(new RegExp('(\\s|^)' + 'show' + '(\\s|$)'))) {
+            return false;
+          }
+          alert.className = alert.className.replace('lines', '');
+          alert.style.opacity = .8;
+          alert.innerHTML = message;
+          var temp_alert = document.getElementById('toast1');
+          temp_alert.innerHTML = message;
+          alert.className += 'show';
+          alert.style.marginLeft = '-' + temp_alert.offsetWidth / 2 + 'px';
+          var intervalCounter = setTimeout(function() {
+            alert.style.opacity = 0;
+            clearInterval(intervalCounter);
+          }, 1500);
+          setTimeout(function() {
+            alert.className = alert.className.replace('show', '');
+          }, 2000);
+        }
+      
     },
     data () {
       return {
@@ -176,7 +201,8 @@
             return `<span class="${className} swiper-pagination-bullet-custom">${TAB_NAME[index]}</span>`
             // return '<span class="' + className + ' swiper-pagination-bullet-custom' + '">' + (index + 1) + '</span>';
           }
-        }
+        },
+        username: ''
       }
     },
     computed: {
@@ -189,7 +215,18 @@
         },
         playing: state => state.PlayService.playing,
         song: state => state.PlayService.song
-      })
+      }),
+      loggedOn: function () {
+        console.log(localStorage.length);   
+        console.log(localStorage.getItem('currentUserName'));
+        this.username = localStorage.getItem('currentUserName')
+        if(localStorage.length === 0 || localStorage.length === 2) {
+          return (localStorage.length === 2) ? 1 : 0;
+        }
+        else {
+          return (localStorage.length === 3) ? 1 : 0;
+        }    
+      }
     },
     watch: {
       playing(val) {
@@ -362,7 +399,7 @@
     height: 60vw;
     /*background:-webkit-gradient(linear, 0 0, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));*/
     text-align: center;
-        background: url('../assets/background.jpg') center no-repeat;
+    background: url('../assets/background.jpg') center no-repeat;
     background-size: cover;
   }
   .head-title {
@@ -377,25 +414,48 @@
     padding: 5px 0;
     color: #eee;
   }
+  .logged-txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    color: #eee;
+    font-size: 20px;
+  }
+  .logged-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
   .login {
     display: block;
     color: #eee;
     width: 100%;
   }
-  .person-list li{
-    margin: 0 0 20px 0;
+  .person-list {
+    height: 100%;
+    width: 100%;
   }
-  .first-list,.second-list,.third-list {
-    border-bottom: 6px solid #ddd;
-    padding: 0px 0 0px 15px;
+  .person-list p{
+    /*margin: 0 0 20px 0;*/
+    font-size: 14px;
+  }
+  .slide-list {
+    /*border-bottom: 6px solid #ddd;*/
+    padding: 12px 0 12px 15px;
     list-style: none;
-    margin:15px 0;
+    /*margin:15px 0;*/
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
-  .first-list {
-   
+  .slide-img {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
   }
-  .third-list {
-    border: none;
+  .list-line {
+    border-bottom: 6px solid #eee;
   }
   .head-img {
     margin: 0 auto;
@@ -567,6 +627,38 @@
   }
 
   #swiper-pagination {
+  }
+  #toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    line-height: 37px;
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    opacity: 0;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    z-index: 9999;
+    /*The good stuff */
+    -webkit-transition: opacity 0.5s ease-out;
+    /* Saf3.2+, Chrome */
+    -moz-transition: opacity 0.5s ease-out;
+    /* FF4+ */
+    -ms-transition: opacity 0.5s ease-out;
+    /* IE10? */
+    -o-transition: opacity 0.5s ease-out;
+    /* Opera 10.5+ */
+    transition: opacity 0.5s ease-out;
+  }
+  #toast1 {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    visibility: hidden;
+    white-space: nowrap;
   }
 
 

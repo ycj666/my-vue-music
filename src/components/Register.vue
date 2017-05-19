@@ -102,7 +102,7 @@
             //     })
             // console.log(userinfo)
             this.$http({
-              url: '//localhost:3000/vuemusic/register/'+ this.username +'/' + this.password ,
+              url: '//192.168.1.123:3000/vuemusic/register/'+ this.username +'/' + this.password ,
               method: 'GET',
               before: function() {
                 this.loadingShow = true;
@@ -115,6 +115,7 @@
                 console.log(res);
                 if(res.status == 200) {  //创建成功 定向到login
                   that.drawToast('用户创建成功');
+                  console.log('用户创建成功');
                   setTimeout(function () {
                     that.$router.push({
                       name:'login'
@@ -173,7 +174,7 @@
     width: 100%;
     height: 100vh;
     /*z-index: 300;*/
-    background: url('../assets/background.jpg') center no-repeat;
+    background: url('../assets/loginBackground.jpg') center no-repeat;
     background-size: cover;
   }
   .register-slide-enter-active {
@@ -198,25 +199,21 @@
     margin-top: 30px;
   }
   .temp {
-    /*text-align: center;*/
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 25px;
-    /*background-color: #458;*/
     height: 40px;
-    border: 1px solid #fff;
-    border-radius: 10px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(255, 255, 255, 0.5);
     width: 73vw;
     margin: 0 auto 20px;
     position: relative;
   }
   .user-icon, .lock-icon{
-    width: 18px;
-    height: 18px;
-    margin: 0 0 0 15px;
+    width: 28px;
+    height: 28px;
     position: absolute;
-    top: 10px;
     left: 0;
   }
   .temp input {
@@ -230,8 +227,9 @@
     /*font-size: 15px;*/
   }
   ::-webkit-input-placeholder {
-    color: #456;
+    color: #fff;
     margin-top: 5px;
+    opacity: 0.8;
   }
   .register-btn {
     cursor: pointer;
@@ -242,7 +240,9 @@
     height: 40px;
     margin: 0 auto;
     /*background-color: #789;*/
-    background:-webkit-gradient(linear, 50% top, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));
+    /*background:-webkit-gradient(linear, 50% top, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));*/
+    border: 1px solid;
+    border-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     color: #ddd;
     letter-spacing: 5px;

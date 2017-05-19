@@ -60,7 +60,7 @@
             //     })
             // console.log(userinfo)
             this.$http({
-              url:'//localhost:3000/vuemusic/login/'+ this.username + '/' + this.password,
+              url:'//192.168.1.123:3000/vuemusic/login/'+ this.username + '/' + this.password,
               method: 'GET', 
               before: function() {
                 this.loadingShow = true;
@@ -71,16 +71,21 @@
                 that.loadingShow = false;
                 that.maskShow = false;
                 console.log(res);
-                if(res.status == 200) {  //创建成功 定向到home
+                if(res.status == 200) {  //创建成功 定向到home                   
+                  let uid = res.bodyText.split(' ')[0]
+                  let uname = res.bodyText.split(' ')[1]
+                  console.log('uid:'+ uid)
+                  console.log('uname:' +uname)
+                  localStorage.setItem('currentUserId',uid)   //存储当前用户uid到localstorage
+                  localStorage.setItem('currentUserName',uname)
+                  console.log(localStorage.length);
                   that.drawToast('登录成功,即将跳转到首页');
-                  let uid = res.bodyText
-                  console.log(uid)
-                  setTimeout(function (uid) {
+                  setTimeout(function () {
                     that.$router.push({
-                      name:'home',
-                      params: {uid: uid}
+                      name:'home'
+                      // params: {uid: uid}
                     })
-                  }, 1500);
+                  }, 500);
                 }
               }, (err) => {
                 let that = this
@@ -136,7 +141,7 @@
     width: 100%;
     height: 100vh;
     /*z-index: 300;*/
-    background: url('../assets/background.jpg') center no-repeat;
+    background: url('../assets/loginBackground.jpg') center no-repeat;
     background-size: cover;
   }
   .login-slide-enter-active {
@@ -161,25 +166,21 @@
     margin-top: 30px;
   }
   .temp {
-    /*text-align: center;*/
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 25px;
-    /*background-color: #458;*/
     height: 40px;
-    border: 1px solid #fff;
-    border-radius: 10px;
+    border-bottom: 1px solid;
+    border-bottom-color: rgba(255, 255, 255, 0.5);
     width: 73vw;
     margin: 0 auto 20px;
     position: relative;
   }
   .user-icon, .lock-icon{
-    width: 18px;
-    height: 18px;
-    margin: 0 0 0 15px;
+    width: 28px;
+    height: 28px;
     position: absolute;
-    top: 10px;
     left: 0;
   }
   .temp input {
@@ -193,8 +194,9 @@
     /*font-size: 15px;*/
   }
   ::-webkit-input-placeholder {
-    color: #456;
+    color: #fff;
     margin-top: 5px;
+    opacity: 0.8;
   }
   .login-btn {
     cursor: pointer;
@@ -205,7 +207,9 @@
     height: 40px;
     margin: 0 auto;
     /*background-color: #789;*/
-    background:-webkit-gradient(linear, 50% top, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));
+    /*background:-webkit-gradient(linear, 50% top, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));*/
+    border: 1px solid;
+    border-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     color: #ddd;
     letter-spacing: 5px;

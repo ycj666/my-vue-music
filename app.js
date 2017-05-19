@@ -17,7 +17,7 @@ app.all('*', (req, res, next) => {
 });
 
 //连接数据库
-mongoose.connect('mongodb://localhost:27017/vuemusic')
+mongoose.connect('mongodb://192.168.1.123:27017/vuemusic')
 	.then(() => console.log('Connected to DB succesful') //数据库成功
 	.catch((err) => console.error(err))); //数据库连接错误
 
@@ -186,7 +186,7 @@ app.get('/vuemusic/login/:UserName/:Password', (req, res) => {
 				res.status(404).send('密码错误，请检查');
 			}
 			else {
-				res.status(200).send(userdata.userid);
+				res.status(200).send(userdata.userid +' '+ userdata.username);
 			}
 		}
 	})

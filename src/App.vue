@@ -56,7 +56,7 @@
       </div>
     </transition>
 
-    <router-view></router-view>
+    <router-view v-show="!playPageShow"></router-view>
     
   
     <!--<div class="menu" v-show="!playPageShow">
@@ -138,15 +138,7 @@
       //     document.getElementById('swiper-pagination').style.top = 0 + 'px'
       //   }
       // },
-      // slideLip(event) {
-               
-      // },
-      showLoginPage (event) {
-        event.preventDefault()
-        if(this.$route = '/login') {
-          this.loginShow = true
-        }
-      },
+
       tapButton(event) {
         event.preventDefault()
         this.playing ? this.pause() : this.play()
@@ -365,73 +357,6 @@
     margin-bottom: -50px;
   }
 
-  .person-slide-enter-active {
-    transition: all .3s ease;
-  }
-  .person-slide-leave-active {
-    transition: all .3s ease-out;
-  }
-  .person-slide-enter, .person-slide-leave-active {
-    transform: translateX(-45vh);
-    /*opacity: 0;*/
-  }
-  .person-page {
-    position: absolute;
-    top: 0;
-    left: 0px;
-    width: 45vh;
-    height: 100%;
-    z-index: 3;
-    background: -webkit-linear-gradient(top, #eee, #fff);
-    /*background-color: #ddd;*/
-  }
-  /*.person-page-slide {
-    left: 0vh;
-    transition: all 0.3s ease-out;
-  }*/
-  .person-head {
-    height: 31vh;
-    background:-webkit-gradient(linear, 0 0, 0 bottom, from(rgba(76, 162, 191, 0.8)), to(#eee));
-    text-align: center;
-  }
-  .head-title {
-    padding: 10px 0 20px;
-    color: #666;
-  }
-  .head-login {
-    margin: 0 auto;
-    width: 180px;
-    border: 1px solid #666;
-    border-radius: 15px;
-    padding: 5px 0;
-    color: #666;
-  }
-  .login {
-    color: #666;
-  }
-  .person-list li{
-    margin: 0 0 20px 0;
-  }
-  .first-list,.second-list,.third-list {
-    border-bottom: 6px solid #ddd;
-    padding: 0px 0 0px 15px;
-    list-style: none;
-    margin:15px 0;
-  }
-  .first-list {
-   
-  }
-  .third-list {
-    border: none;
-  }
-  .head-img {
-    margin: 0 auto;
-    padding-top: 30px;
-  }
-  .person-head-img {
-    width: 15vw;
-    height: 15vw;
-  }
 
 
   .mask {
