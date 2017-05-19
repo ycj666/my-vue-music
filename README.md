@@ -14,9 +14,9 @@
 <p align="center">查看Demo:<a href="http://sioxas.github.io/">http://sioxas.github.io/</a>,在手机上效果更好，扫一扫体验</p>
 <p align="center"><a href="http://sioxas.github.io/"><img src="http://ww2.sinaimg.cn/large/6ee3e8b3gw1f9xjboxz2tj205i05fjrm.jpg" alt="vue-music"></a></p>-->
 
-# vue_study
+# my-vue-music
 
-> A Vue.js project
+> A Vue.js music project
 
 ### 实现的功能
 1. 音乐播放、暂停、上一曲、下一曲
